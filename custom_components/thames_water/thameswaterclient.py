@@ -106,7 +106,12 @@ class ThamesWater:
             "p": "B2C_1_tw_website_signin",
         }
 
-        data = {"request_type": "RESPONSE", "email": email, "password": password}
+        data = {
+            "request_type": "RESPONSE",
+            "email": email,
+            "password": password,
+            "JavaScriptDisabled": "false",
+        }
 
         headers = {
             "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36",
@@ -114,6 +119,7 @@ class ThamesWater:
         }
 
         r = self.s.post(url, params=params, data=data, headers=headers, timeout=30)
+        _LOGGER.debug("SelfAsserted response: %s", r.text)
         r.raise_for_status()
 
     def _confirmed_b2c_1_tw_website_signin(self, trans_token: str, csrf_token: str):
@@ -131,7 +137,12 @@ class ThamesWater:
         }
 
         r = self.s.get(url, headers=headers, params=params, timeout=30)
+        _LOGGER.debug("Confirmed sign-in response URL: %s", r.url)
         r.raise_for_status()
+
+        if "#" not in r.url:
+            _LOGGER.error("Expected '#' in redirect URL but found none: %s", r.url)
+            raise KeyError("code")
 
         confirmed_signup_structured_response = {
             item.split("=")[0]: item.split("=")[1]
