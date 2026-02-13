@@ -119,7 +119,7 @@ class ThamesWater:
         }
 
         r = self.s.post(url, params=params, data=data, headers=headers, timeout=30)
-        _LOGGER.debug("SelfAsserted response: %s", r.text)
+        #_LOGGER.debug("SelfAsserted response: %s", r.text)
         r.raise_for_status()
 
     def _confirmed_b2c_1_tw_website_signin(self, trans_token: str, csrf_token: str):
@@ -137,7 +137,7 @@ class ThamesWater:
         }
 
         r = self.s.get(url, headers=headers, params=params, timeout=30)
-        _LOGGER.debug("Confirmed sign-in response URL: %s", r.url)
+        #_LOGGER.debug("Confirmed sign-in response URL: %s", r.url)
         r.raise_for_status()
 
         if "#" not in r.url:

@@ -199,7 +199,7 @@ class ThamesWaterSensor(ThamesWaterEntity, SensorEntity):
         if last_stats is not None and last_stats.get("sum") is not None:
             start_dt = dt_util.as_utc(datetime.fromtimestamp(last_stats.get("start")))
         else:
-            start_dt = end_dt - timedelta(days=30)
+            start_dt = end_dt - timedelta(days=45)
 
         current_date = start_dt.date()
         end_date = end_dt.date()
@@ -227,7 +227,7 @@ class ThamesWaterSensor(ThamesWaterEntity, SensorEntity):
             current_date = current_date + timedelta(days=1)
 
             d = datetime(year, month, day)
-            _LOGGER.debug("Fetching data for %s/%s/%s", day, month, year)
+            #_LOGGER.debug("Fetching data for %s/%s/%s", day, month, year)
 
             try:
                 data = await self._hass.async_add_executor_job(
@@ -275,7 +275,7 @@ class ThamesWaterSensor(ThamesWaterEntity, SensorEntity):
             "liter_cost", self._config_entry.data.get("liter_cost", DEFAULT_LITER_COST)
         )
 
-        _LOGGER.debug("Using Liter Cost: %s", liter_cost)
+        #_LOGGER.debug("Using Liter Cost: %s", liter_cost)
 
         if last_stats is not None and last_stats.get("sum") is not None:
             initial_cumulative = last_stats["sum"]

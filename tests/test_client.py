@@ -22,7 +22,7 @@ from dotenv import load_dotenv
 from custom_components.thames_water.thameswaterclient import ThamesWater
 
 # Set up logging
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 _LOGGER = logging.getLogger(__name__)
 
 def main():
