@@ -3,7 +3,7 @@ import pytest
 from homeassistant.core import HomeAssistant
 from homeassistant.setup import async_setup_component
 from custom_components.thames_water.const import DOMAIN
-
+from custom_components.thames_water import sensor
 async def test_sensor_setup(hass: HomeAssistant, mock_thames_water_client):
     """Test sensor setup and basic functionality."""
     # Mock data return for the client
